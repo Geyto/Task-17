@@ -2,9 +2,9 @@
 import {Worker} from "./worker.js";
 
 const personal = [
-    ['Roman', 'Geyto', "03.11.2000", 'front'],
+    ['Roman', 'Geyto', "10.11.2000", 'front'],
     ['Andrey', 'Petrov', "02.01.1986", 'back'],
-    ['Anna', 'Voronina', "10.23.1998", 'des'],
+    ['Anna', 'Voronina', "10.23.2000", 'des'],
     ['Maria', 'Star', "07.13.1999", 'HR'],
     ['Nikolay', 'Boyko', "08.20.1984", 'TeamLeader'],
 ]
@@ -15,6 +15,7 @@ personal.forEach(item =>{
     work.push(new Worker(...item ));
 })
 work[0].addDays(23);
+work[0].addDays(1);
 work[2].addDays(6);
 work[1].addDays(12);
 work[1].addDays(3);

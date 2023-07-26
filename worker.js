@@ -19,8 +19,9 @@ export class Worker extends Person {
 
     addDays(value) {
         const nowDate = new Date();
-        const days_in_month =32 - new Date(nowDate.getFullYear(), nowDate.getMonth(), 32).getDate()
-        if (value > 0 && this.#days + value < days_in_month){
+        const currentMonth = new Date(nowDate.getFullYear(), nowDate.getMonth()+1, 0);
+        const total = currentMonth.getDate();
+        if (value > 0 && this.#days + value < total){
             this.#days += value;
         }
     }
@@ -37,18 +38,37 @@ export class Worker extends Person {
     }
     static whoWorkedMore(array){
         const max = array.sort((a, b) => b.daysWork - a.daysWork)[0];
-        //не фильтрует массив возвращает пустой
-        // const bestWorker = array.filter(item =>{
-        //     item.daysWork === max.daysWork;
-        // });
-        return console.log(`Больше всех отработал ${max.getFullName()}. Количество рабочих дней - ${max.daysWork}`)
+        const bestWorkers = array.filter(item =>{
+            return  item.daysWork === max.daysWork;
+        });
+        if (bestWorkers.length === 1){
+            return console.log(`Больше всех отработал ${max.getFullName()}. Количество рабочих дней - ${max.daysWork}`)
+        } else {
+            return console.log(`Больше всех отработали ${getNameList(bestWorkers)}. Количество рабочих дней - ${max.daysWork}`)
+        }
+
     }
     static whoIsYounger(array){
         const max = array.sort((a, b) => parseInt(a.getAge().match(/\d+/)) - parseInt(b.getAge().match(/\d+/)))[0];
-        //не фильтрует массив возвращает пустой
-        // const younger = array.filter(item =>{
-        //     parseInt(item.getAge().match(/\d+/)) === parseInt(max.getAge().match(/\d+/))
-        // });
-        return console.log(`Самый молодой сотрудник ${max.getFullName()}. ${max.getAge()}`)
+        const younger = array.filter(item =>{
+            return parseInt(item.getAge().match(/\d+/)) === parseInt(max.getAge().match(/\d+/))
+        });
+        if (younger.length === 1){
+            return console.log(`Самый молодой сотрудник ${max.getFullName()}. ${max.getAge()}`)
+        } else {
+            return console.log(`Самый молодые сотрудники ${getNameList(younger)}. ${max.getAge()}`)
+        }
+
     }
+}
+function getNameList (array){
+    let listName = null;
+    for (let i = 0; i < array.length; i++){
+        if (listName === null){
+            listName = array[i].getFullName()
+        } else {
+            listName +=', ' + array[i].getFullName();
+        }
+    }
+    return listName
 }
