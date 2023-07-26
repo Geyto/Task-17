@@ -1,4 +1,4 @@
-import {Person} from "./model.js";
+
 import {Worker} from "./worker.js";
 
 const personal = [
@@ -12,9 +12,7 @@ const personal = [
 let work = [];
 
 personal.forEach(item =>{
-    let workers = new Worker(item[0], item[1], item[2], item[3], );
-    work.push(workers);
-
+    work.push(new Worker(...item ));
 })
 work[0].addDays(23);
 work[2].addDays(6);
